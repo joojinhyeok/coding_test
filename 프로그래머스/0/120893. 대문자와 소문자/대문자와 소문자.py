@@ -3,6 +3,8 @@ def solution(my_string):
     for i in my_string:
         if i.isupper():
             answer += i.lower()
-        elif i.islower():
+        else:
             answer += i.upper()
     return answer
+
+ # return my_string.swapcase()
