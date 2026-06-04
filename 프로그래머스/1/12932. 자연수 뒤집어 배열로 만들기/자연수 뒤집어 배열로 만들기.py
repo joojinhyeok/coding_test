@@ -1,6 +1,7 @@
 def solution(n):
     answer = []
-    for i in str(n):
+    s_n = str(n)
+    r_n = reversed(s_n)
+    for i in r_n:
         answer.append(int(i))
-    answer.reverse()
     return answer
