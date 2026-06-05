@@ -1,4 +1,7 @@
 def solution(n):
-    n = str(n)
-    n_sort = sorted(n, reverse=True)
-    return int("".join(n_sort))
+    answer = ''
+    n1 = sorted(list(str(n)), reverse=True)
+    
+    for i in n1:
+        answer += i
+    return int(answer)
