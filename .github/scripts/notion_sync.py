@@ -21,8 +21,14 @@ HEADERS = {
 
 
 def get_changed_files():
+    # core.quotepath=false 로 한글 파일명을 raw UTF-8 그대로 출력
+    before = os.environ.get("GITHUB_EVENT_BEFORE", "")
+    if before and before != "0000000000000000000000000000000000000000":
+        diff_range = [before, "HEAD"]
+    else:
+        diff_range = ["HEAD~1", "HEAD"]
     result = subprocess.run(
-        ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+        ["git", "-c", "core.quotepath=false", "diff", "--name-only", *diff_range],
         capture_output=True, text=True, check=True
     )
     return [f for f in result.stdout.strip().split("\n") if f]
@@ -85,12 +91,14 @@ def update_page(page_id, level, folder):
 
 def main():
     files = get_changed_files()
-    print(f"Changed files: {len(files)}")
+    print(f"Changed files ({len(files)}):")
+    for f in files:
+        print(f"  {f}")
     problems = extract_problems(files)
     if not problems:
         print("No 프로그래머스 problems in changes")
         return 0
-    print(f"Detected {len(problems)} problem(s): {sorted(problems.keys())}")
+    print(f"\nDetected {len(problems)} problem(s): {sorted(problems.keys())}")
     success = 0
     for number, info in problems.items():
         print(f"\n-> Problem {number} ({info['name']}, Lv.{info['level']})")
