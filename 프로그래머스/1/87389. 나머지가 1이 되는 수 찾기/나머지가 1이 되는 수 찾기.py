@@ -1,4 +1,6 @@
 def solution(n):
-    for i in range(2, n):
+    answer = 0
+    for i in range(n, 1, -1):
         if n % i == 1:
-            return i
+            answer = i
+    return answer
