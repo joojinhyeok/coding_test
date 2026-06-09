@@ -1,7 +1,10 @@
 def solution(x):
-    n = 0
-    for i in str(x):
-        n += int(i)
-    if x % n == 0:
+    x = str(x)
+    sum = 0
+    for i in x:
+        sum += int(i)
+
+    if int(x) % sum == 0:
         return True
-    else: return False
+    else:
+        return False
