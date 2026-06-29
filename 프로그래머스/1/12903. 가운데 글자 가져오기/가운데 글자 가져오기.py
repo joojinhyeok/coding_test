@@ -1,9 +1,9 @@
 def solution(s):
     answer = ''
-    list_s = list(s)
-    mid = len(s) // 2 
-    
-    if len(s) % 2 != 0:
-        return list_s[mid]
+    m = int(len(s) / 2)
+    s = list(s)
+    if len(s) % 2 == 0:
+        answer += s[m-1] + s[m]
     else:
-        return list_s[mid-1] + list_s[mid]
+        answer += s[m]
+    return answer
